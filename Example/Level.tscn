@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://70vnwve02lxi"]
+
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="1_l6tpp"]
+[ext_resource type="PackedScene" uid="uid://d2qu8yckg0sp6" path="res://SpatialAudio/SpatialAudioPlayer3D.tscn" id="2_rohos"]
+[ext_resource type="Script" uid="uid://pgnmhrwl0143" path="res://Example/example_move.gd" id="2_t7qrl"]
+[ext_resource type="AudioStream" uid="uid://dy2ae4w787ji4" path="res://Example/ink jet toner.wav" id="4_rohos"]
+[ext_resource type="AudioStream" uid="uid://4atlm1picuu2" path="res://Example/Heaven Pierce Her - ULTRAKILL- INFINITE HYPERDEATH - 17 Glory.mp3" id="4_t7qrl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f8403"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_6lsuu"]
+sky_material = SubResource("ProceduralSkyMaterial_f8403")
+
+[sub_resource type="Environment" id="Environment_rohos"]
+background_mode = 2
+sky = SubResource("Sky_6lsuu")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Curve3D" id="Curve3D_6lsuu"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 14.8838, 3.27359, 4.87682, 0, 0, 0, 0, 0, 0, -14.1339, 3.274, 4.877),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t7qrl"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ksnm"]
+material = SubResource("StandardMaterial3D_t7qrl")
+
+[node name="Level" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rohos")
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+use_collision = true
+collision_layer = 9
+size = Vector3(50, 0.1, 50)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.00549, 2.50631, -8.72437)
+use_collision = true
+collision_layer = 9
+size = Vector3(15.011, 0.112305, 18.4487)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.8912, 3.64687, 5.28894)
+use_collision = true
+collision_layer = 9
+size = Vector3(14.0244, 7.92578, 11.5779)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.946442, -0.0257149, -0.0384827)
+operation = 2
+size = Vector3(15.0143, 7.06571, 9.37408)
+
+[node name="ProtoController" parent="." instance=ExtResource("1_l6tpp")]
+input_left = "left"
+input_right = "right"
+input_forward = "forward"
+input_back = "backward"
+input_jump = "jump"
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_6lsuu")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-6.24255e-06, 1.42059e-05, 0.999993, -4.54744e-13, 0.99999, -1.42059e-05, -0.999993, -8.91363e-11, -6.24255e-06, 14.8838, 3.27359, 4.87682)
+tilt_enabled = false
+script = ExtResource("2_t7qrl")
+
+[node name="SpatialAudioPlayer3d" parent="Path3D/PathFollow3D" instance=ExtResource("2_rohos")]
+stream = ExtResource("4_t7qrl")
+autoplay = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D/SpatialAudioPlayer3d"]
+mesh = SubResource("BoxMesh_8ksnm")
+
+[node name="SpatialAudioPlayer3d2" parent="." instance=ExtResource("2_rohos")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.57186, 3.23643, -9.10945)
+stream = ExtResource("4_rohos")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpatialAudioPlayer3d2"]
+mesh = SubResource("BoxMesh_8ksnm")

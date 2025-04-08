@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://4atlm1picuu2"
+path="res://.godot/imported/Heaven Pierce Her - ULTRAKILL- INFINITE HYPERDEATH - 17 Glory.mp3-a94d34467aa10183691f0e93fe7f1ea3.mp3str"
+
+[deps]
+
+source_file="res://Example/Heaven Pierce Her - ULTRAKILL- INFINITE HYPERDEATH - 17 Glory.mp3"
+dest_files=["res://.godot/imported/Heaven Pierce Her - ULTRAKILL- INFINITE HYPERDEATH - 17 Glory.mp3-a94d34467aa10183691f0e93fe7f1ea3.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
